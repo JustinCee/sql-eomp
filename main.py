@@ -34,16 +34,14 @@ def logging_in():
     if password_entry == '':
         messagebox.showinfo('Error', 'Please enter your password')
     else:
-        hospital = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
-                                           database='Hospital',
-                                           auth_plugin='mysql_native_password')
-        mycursor = hospital.cursor()
+        lifechoicesdb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
+                                                database='LifechoicesDB',
+                                                auth_plugin='mysql_native_password')
+        mycursor = lifechoicesdb.cursor()
         xy = mycursor.execute('SELECT * FROM Logins')
         for i in mycursor:
             if user_name_entry.get() == i[0] and password_entry.get() == i[1]:
-                messagebox.showinfo('Access Granted', 'welcome to hospital')
-                window.destroy()
-                import next_screen
+                messagebox.showinfo('Access Granted', 'welcome to LifeChoices')
 
             elif user_name_entry.get() != i[0] and password_entry.get() != i[0]:
                 messagebox.showinfo('Login Error', 'Please type in the correct details')
