@@ -1,4 +1,5 @@
 from tkinter import *
+
 from PIL import ImageTk, Image
 
 window = Tk()
@@ -37,7 +38,14 @@ def clearing():
 
 clear_btn = Button(window, text='Clear', command=clearing)
 clear_btn.place(x=200, y=400)
-register_btn = Button(window, text='Register', fg='blue')
+
+
+def register_screen():
+    window.destroy()
+    import second_screen
+
+
+register_btn = Button(window, text='Register', fg='blue', command=register_screen)
 register_btn.place(x=50, y=400)
 
 

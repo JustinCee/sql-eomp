@@ -1,8 +1,9 @@
+import tkinter
 from tkinter import *
 from PIL import ImageTk, Image
 
 window = Tk()
-window.geometry('500x500')
+window.geometry('500x650')
 window.title('Register')
 window.config(bg='yellow')
 
@@ -34,5 +35,44 @@ email_label = Label(window, text='E-Mail Address:', bg='yellow')
 email_label.place(x=10, y=380)
 email_entry = Entry(window, width=30)
 email_entry.place(x=220, y=380)
+password_label = Label(window, text='Please generate a Password:', bg='yellow')
+password_label.place(x=10, y=460)
+password_entry = Entry(window)
+password_entry.place(x=300, y=460)
+
+
+options_list = ['Student', 'Admin', 'Lecturer', 'Staff', "Visitor"]
+value_inside = tkinter.StringVar(window)
+value_inside.set("Select your Occupation")
+role_menu = tkinter.OptionMenu(window, value_inside, *options_list)
+role_menu.pack()
+role_menu.place(x=270, y=420)
+role_option = Label(window, text='Please select your Occupation:', bg='yellow')
+role_option.place(x=10, y=420)
+
+register_btn = Button(window, text='Register', fg='blue')
+register_btn.place(x=385, y=520)
+
+
+def clear_fields():
+    id_number_entry.delete(0, END)
+    name_entry.delete(0, END)
+    surname_entry.delete(0, END)
+    cell_entry.delete(0, END)
+    email_entry.delete(0, END)
+    password_entry.delete(0, END)
+
+
+clear_btn = Button(window, text='Clear', command=clear_fields)
+clear_btn.place(x=280, y=520)
+
+
+def login_screen():
+    window.destroy()
+    import first_screen
+
+
+login_btn = Button(window, text='Back to Login screen', fg='green', command=login_screen)
+login_btn.place(x=10, y=520)
 
 window.mainloop()
