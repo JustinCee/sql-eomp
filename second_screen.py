@@ -6,7 +6,7 @@ import mysql.connector
 from PIL import ImageTk, Image
 
 window = Tk()
-window.geometry('500x650')
+window.geometry('500x570')
 window.title('Register')
 window.config(bg='yellow')
 

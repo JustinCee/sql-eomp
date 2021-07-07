@@ -47,7 +47,7 @@ def logging_in():
                 window.destroy()
                 import new
 
-        if name_entry.get() != i[0] and password_entry.get() != i[0]:
+        if name_entry.get() != [0] and password_entry.get() != [0]:
             messagebox.showinfo('Login Error', 'Please type in the correct details')
 
 
