@@ -62,7 +62,7 @@ def registering():
                                                     database='LifechoicesDB',
                                                     auth_plugin='mysql_native_password')
             mycursor = lifechoicesdb.cursor()
-            data = 'INSERT INTO Users VALUES (%s, %s, %s, %s, %s, %s, %s,)'
+            data = 'INSERT INTO Users VALUES (%s, %s, %s, %s, %s, %s, %s)'
             value = (id_number_entry.get(), name_entry.get(), surname_entry.get(), cell_entry.get(), email_entry.get(), value_inside.get(), password_entry.get())
             mycursor.execute(data, value)
             lifechoicesdb.commit()

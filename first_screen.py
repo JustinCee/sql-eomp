@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+import mysql.connector
 
 from PIL import ImageTk, Image
 
@@ -27,7 +29,29 @@ password_label.place(x=30, y=300)
 password_entry = Entry(window, show='*')
 password_entry.place(x=300, y=300)
 
-login_btn = Button(window, text='Login', fg='green')
+
+def logging_in():
+    if name_entry == '':
+        messagebox.showinfo("Error", 'Please enter your username')
+    if password_entry == '':
+        messagebox.showinfo('Error', 'Please enter your password')
+    else:
+        lifechoicesdb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
+                                                database='LifechoicesDB',
+                                                auth_plugin='mysql_native_password')
+        mycursor = lifechoicesdb.cursor()
+        xy = mycursor.execute('SELECT name, password FROM Users')
+        for i in mycursor:
+            if name_entry.get() == i[0] and password_entry.get() == i[1]:
+                messagebox.showinfo('Access Granted', 'Welcome to LifeChoices')
+                window.destroy()
+                import new
+
+        if name_entry.get() != i[0] and password_entry.get() != i[0]:
+            messagebox.showinfo('Login Error', 'Please type in the correct details')
+
+
+login_btn = Button(window, text='Login', fg='green', command=logging_in)
 login_btn.place(x=350, y=400)
 
 
