@@ -1,5 +1,8 @@
 import tkinter
 from tkinter import *
+from tkinter import messagebox
+
+import mysql.connector
 from PIL import ImageTk, Image
 
 window = Tk()
@@ -40,7 +43,6 @@ password_label.place(x=10, y=460)
 password_entry = Entry(window)
 password_entry.place(x=300, y=460)
 
-
 options_list = ['Student', 'Admin', 'Lecturer', 'Staff', "Visitor"]
 value_inside = tkinter.StringVar(window)
 value_inside.set("Select your Occupation")
@@ -50,7 +52,28 @@ role_menu.place(x=270, y=420)
 role_option = Label(window, text='Please select your Occupation:', bg='yellow')
 role_option.place(x=10, y=420)
 
-register_btn = Button(window, text='Register', fg='blue')
+
+def registering():
+    if name_entry.get() == '' or password_entry.get() == '' or id_number_entry.get() == '' or surname_entry.get() == '':
+        messagebox.showerror('Entry Error', 'Please enter your details')
+    else:
+        try:
+            lifechoicesdb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
+                                                    database='LifechoicesDB',
+                                                    auth_plugin='mysql_native_password')
+            mycursor = lifechoicesdb.cursor()
+            data = 'INSERT INTO Users VALUES (%s, %s, %s, %s, %s, %s, %s,)'
+            value = (id_number_entry.get(), name_entry.get(), surname_entry.get(), cell_entry.get(), email_entry.get(), value_inside.get(), password_entry.get())
+            mycursor.execute(data, value)
+            lifechoicesdb.commit()
+            messagebox.showinfo("Good Day", 'You have been registered and you can now Login')
+        except ValueError:
+            messagebox.showinfo('Details invalid', 'Please make sure that the details you have entered match')
+            name_entry.delete(0, END)
+            password_entry.delete(0, END)
+
+
+register_btn = Button(window, text='Register', fg='blue', command=registering)
 register_btn.place(x=385, y=520)
 
 
