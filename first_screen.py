@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 from tkinter import messagebox
 import mysql.connector
@@ -25,9 +26,18 @@ name_entry = Entry(window)
 name_entry.place(x=300, y=220)
 
 password_label = Label(window, text='Please enter your password', bg='yellow')
-password_label.place(x=30, y=300)
+password_label.place(x=30, y=260)
 password_entry = Entry(window, show='*')
-password_entry.place(x=300, y=300)
+password_entry.place(x=300, y=260)
+
+options_list = ['Student', 'Admin', 'Lecturer', 'Staff', "Visitor"]
+value_inside = tkinter.StringVar(window)
+value_inside.set("Select your Occupation")
+role_menu = tkinter.OptionMenu(window, value_inside, *options_list)
+role_menu.pack()
+role_menu.place(x=272, y=300)
+role_option = Label(window, text='Please select your Occupation:', bg='yellow')
+role_option.place(x=30, y=300)
 
 
 def logging_in():
@@ -40,12 +50,17 @@ def logging_in():
                                                 database='LifechoicesDB',
                                                 auth_plugin='mysql_native_password')
         mycursor = lifechoicesdb.cursor()
-        xy = mycursor.execute('SELECT name, password FROM Users')
+        xy = mycursor.execute('SELECT name, password, role FROM Users')
         for i in mycursor:
-            if name_entry.get() == i[0] and password_entry.get() == i[1]:
+            if value_inside.get() != "Admin":
                 messagebox.showinfo('Access Granted', 'Welcome to LifeChoices')
                 window.destroy()
                 import new
+
+            elif name_entry.get() == i[0] and password_entry.get() == i[1] and value_inside.get() == "Admin":
+                messagebox.showinfo('Access Granted', 'You have made it to the Admin Page')
+                window.destroy()
+                import main
 
         if name_entry.get() != [0] and password_entry.get() != [0]:
             messagebox.showinfo('Login Error', 'Please type in the correct details')

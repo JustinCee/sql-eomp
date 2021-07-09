@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, date
 from tkinter import *
-
+from first_screen import name_entry
 import mysql.connector
 
 window = Tk()
@@ -23,8 +23,8 @@ def sign_in():
                                      auth_plugin='mysql_native_password')
     mycursor = signdb.cursor()
     first = "INSERT INTO sign_in(id_number, sign_in, sign_in_date) VALUES (%s, %s, %s)"
-    data_one = (get_time, get_date)
-    mycursor.execute(first, data_one)
+    data_one = (name_entry, get_time, get_date)
+    mycursor.executemany(first, data_one)
     signdb.commit()
 
 

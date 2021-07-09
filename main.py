@@ -150,12 +150,20 @@ def delete_data(tree):
 
 insert_btn = Button(admin, text='Insert', command=lambda: add_data(tree), font=('calibri', 14, 'bold'), bg='green',
                     fg='white')
-insert_btn.place(x=10, y=350)
+insert_btn.place(x=300, y=350)
 
 delete_btn = Button(admin, text='Delete', command=lambda: delete_data(tree), font=('calibri', 14, 'bold'), bg='red', fg='white')
-delete_btn.place(x=200, y=350)
+delete_btn.place(x=600, y=350)
 
-# main_label = Label(admin, text='Administrator', bg='yellow', font='Helvetica 25 underline')
-# main_label.place(x=150, y=5)
+main_label = Label(admin, text='Administrator', bg='yellow', font='Helvetica 25 underline')
+main_label.place(x=400, y=5)
+
+
+def leaving():
+    admin.destroy()
+
+
+exit_btn = Button(admin, text='Exit', font=('calibri', 14, 'bold'), bg='white', fg='red', command=leaving)
+exit_btn.place(x=900, y=450)
 
 admin.mainloop()
