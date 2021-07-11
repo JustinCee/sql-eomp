@@ -52,15 +52,15 @@ def logging_in():
         mycursor = lifechoicesdb.cursor()
         xy = mycursor.execute('SELECT name, password, role FROM Users')
         for i in mycursor:
-            if value_inside.get() != "Admin":
+            if name_entry.get() == i[0] and password_entry.get() == i[1]:
                 messagebox.showinfo('Access Granted', 'Welcome to LifeChoices')
                 window.destroy()
                 import new
 
-            elif name_entry.get() == i[0] and password_entry.get() == i[1] and value_inside.get() == "Admin":
-                messagebox.showinfo('Access Granted', 'You have made it to the Admin Page')
-                window.destroy()
-                import main
+        if name_entry.get() == i[0] and password_entry.get() == i[1] and value_inside.get() == "Admin":
+            messagebox.showinfo('Access Granted', 'You have made it to the Admin Page')
+            window.destroy()
+            import main
 
         if name_entry.get() != [0] and password_entry.get() != [0]:
             messagebox.showinfo('Login Error', 'Please type in the correct details')
