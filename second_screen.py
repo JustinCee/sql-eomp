@@ -1,20 +1,21 @@
+# below is all the modules that i needed to import for the tkinter screen and all the functions
 import tkinter
 from tkinter import *
 from tkinter import messagebox
 
 import mysql.connector
 from PIL import ImageTk, Image
-
+# Below is the configuration of the window
 window = Tk()
 window.geometry('500x570')
 window.title('Register')
 window.config(bg='yellow')
-
+# below is the configuration of the image needed
 canvas = Canvas(window, width=500, height=300, bg="Yellow", borderwidth=0, highlightthickness=0)
 canvas.place(x=60, y=5)
 img = ImageTk.PhotoImage(Image.open('download (1).jpeg'))
 canvas.create_image(20, 20, anchor=NW, image=img)
-
+# Below is all the labels and entries needed to collect the users data needed for the database
 main_label = Label(window, text='Please enter the requested details below.', font='Helvetica 13 underline', bg='yellow')
 main_label.place(x=85, y=180)
 
@@ -42,7 +43,7 @@ password_label = Label(window, text='Please generate a Password:', bg='yellow')
 password_label.place(x=10, y=460)
 password_entry = Entry(window)
 password_entry.place(x=300, y=460)
-
+# below is the option menu needed for the user to select their role or occupation
 options_list = ['Student', 'Admin', 'Lecturer', 'Staff', "Visitor"]
 value_inside = tkinter.StringVar(window)
 value_inside.set("Select your Occupation")
@@ -53,6 +54,7 @@ role_option = Label(window, text='Please select your Occupation:', bg='yellow')
 role_option.place(x=10, y=420)
 
 
+# Below is the function needed to register the users to the database and collects their data that they provided
 def registering():
     if name_entry.get() == '' or password_entry.get() == '' or id_number_entry.get() == '' or surname_entry.get() == '':
         messagebox.showerror('Entry Error', 'Please enter your details')
@@ -73,10 +75,12 @@ def registering():
             password_entry.delete(0, END)
 
 
+# below is the register button
 register_btn = Button(window, text='Register', fg='blue', command=registering)
 register_btn.place(x=385, y=520)
 
 
+# Below is the functions and the buttons for the CLEAR option and to go back to the LOGIN screen
 def clear_fields():
     id_number_entry.delete(0, END)
     name_entry.delete(0, END)

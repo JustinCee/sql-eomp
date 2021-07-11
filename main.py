@@ -1,21 +1,23 @@
+# below is al the modules that i needed to import
 import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox
 
 import mysql.connector
 
+# below is the configuration of the window
 admin = Tk()
 admin.title("Admin Account")
 admin.geometry('1000x700')
 admin.config(bg='yellow')
-
+# below is linking mysql to python
 lifechoicesdb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
                                         database='LifechoicesDB',
                                         auth_plugin='mysql_native_password')
 
 connect = lifechoicesdb.cursor()
 connect.execute("SELECT * FROM Users")
-
+# this is the configuration of the tree view table
 tree = ttk.Treeview(admin)
 tree['show'] = 'headings'
 
@@ -63,6 +65,7 @@ role = StringVar()
 password = StringVar()
 
 
+# below is the function needed to add data to the tree view table and to my database
 def add_data(tree):
     frame = Frame(admin, width=400, height=400, bg='grey')
     frame.place(x=100, y=150)
@@ -102,6 +105,7 @@ def add_data(tree):
     label7.place(x=50, y=270)
     entry7.place(x=170, y=270)
 
+    # below is to insert data into the table and my database
     def insert_data():
         nonlocal entry1, entry2, entry3, entry4, entry5, entry6, entry7
         num_id = ID.get()
@@ -127,6 +131,7 @@ def add_data(tree):
         entry7.delete(0, END)
         frame.destroy()
 
+    # below is to close the insert data frame
     def close():
         frame.destroy()
 
@@ -136,6 +141,7 @@ def add_data(tree):
     cancel_btn.place(x=240, y=320)
 
 
+# below is the function needed to delete data from my database and from the treeview table
 def delete_data(tree):
     select_items = tree.selection()[0]
     print(tree.item(select_items)['values'])
@@ -148,17 +154,20 @@ def delete_data(tree):
     messagebox.showinfo('Success', 'Data has been deleted')
 
 
+# below are my insert and delete buttons
 insert_btn = Button(admin, text='Insert', command=lambda: add_data(tree), font=('calibri', 14, 'bold'), bg='green',
                     fg='white')
 insert_btn.place(x=300, y=350)
 
-delete_btn = Button(admin, text='Delete', command=lambda: delete_data(tree), font=('calibri', 14, 'bold'), bg='red', fg='white')
+delete_btn = Button(admin, text='Delete', command=lambda: delete_data(tree), font=('calibri', 14, 'bold'), bg='red',
+                    fg='white')
 delete_btn.place(x=600, y=350)
 
 main_label = Label(admin, text='Administrator', bg='yellow', font='Helvetica 25 underline')
 main_label.place(x=400, y=5)
 
 
+# below is the function to close the admin window and the exit button
 def leaving():
     admin.destroy()
 
